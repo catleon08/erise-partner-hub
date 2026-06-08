@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNR e-RISE Partner Hub — NSF 25-522</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D2B5E;
+  --blue:#1A4A8A;
+  --blue-mid:#2563C0;
+  --blue-light:#EBF2FF;
+  --blue-pale:#F4F8FF;
+  --teal:#00836B;
+  --teal-light:#E6F5F2;
+  --gold:#C8870C;
+  --gold-bg:#FFF8EC;
+  --gold-border:#F5C842;
+  --green:#1A6B3A;
+  --green-bg:#EBF7EE;
+  --green-border:#52C27A;
+  --red:#9B1C1C;
+  --red-bg:#FEF2F2;
+  --amber:#B06A00;
+  --amber-bg:#FFF7E6;
+  --amber-border:#F5C842;
+  --gray-50:#F8F9FA;
+  --gray-100:#F1F3F5;
+  --gray-200:#E2E8F0;
+  --gray-400:#94A3B8;
+  --gray-600:#475569;
+  --text:#1a202c;--text2:#4A5568;--text3:#718096;
+  --bg:#FFFFFF;--bg2:#F8FAFC;--bg3:#F0F4FA;
+  --border:#E2E8F0;--border2:#CBD5E1;
+  --r:10px;--r-sm:7px;--r-lg:16px;
+  --shadow:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.05);
+  --shadow-md:0 4px 12px rgba(0,0,0,.10);
+  --shadow-lg:0 8px 24px rgba(0,0,0,.12);
+  --font:'DM Sans',system-ui,sans-serif;
+  --serif:'DM Serif Display',Georgia,serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg3);color:var(--text);font-size:15px;line-height:1.6}
+a{color:var(--blue-mid);text-decoration:none}
+a:hover{text-decoration:underline}
+#gate{position:fixed;inset:0;background:linear-gradient(135deg,var(--navy) 0%,#0D3A6E 55%,#1A5E8A 100%);z-index:9999;display:flex;align-items:center;justify-content:center}
+#gate.hidden{display:none}
+.gate-box{background:#fff;border-radius:20px;padding:40px 44px;width:min(420px,92vw);box-shadow:0 24px 72px rgba(0,0,0,.35);text-align:center}
+.gate-emblem{width:60px;height:60px;background:linear-gradient(135deg,var(--navy),var(--blue-mid));border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 20px}
+.gate-title{font-family:var(--serif);font-size:22px;color:var(--navy);margin-bottom:6px}
+.gate-sub{font-size:13px;color:var(--text3);margin-bottom:26px;line-height:1.55}
+.gate-input{width:100%;padding:12px 16px;border:1.5px solid var(--border2);border-radius:9px;font-size:15px;outline:none;transition:border-color .15s;letter-spacing:.08em;text-align:center;font-family:var(--font)}
+.gate-input:focus{border-color:var(--blue-mid)}
+.gate-input.shake{animation:shake .35s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}60%{transform:translateX(8px)}80%{transform:translateX(-4px)}}
+.gate-btn{width:100%;margin-top:12px;padding:12px;background:linear-gradient(135deg,var(--navy),var(--blue-mid));color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font)}
+.gate-btn:hover{opacity:.9}
+.gate-error{font-size:12px;color:var(--red);margin-top:10px;min-height:18px}
+.gate-hint{font-size:11px;color:var(--text3);margin-top:16px}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);box-shadow:var(--shadow)}
+.nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:58px}
+.nav-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px;color:var(--navy)}
+.nav-badge{background:linear-gradient(135deg,var(--navy),var(--blue-mid));color:#fff;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700}
+.nav-links{display:flex;gap:2px}
+.nav-links a{padding:6px 12px;border-radius:6px;font-size:13px;color:var(--text2);transition:background .15s,color .15s}
+.nav-links a:hover{background:var(--gray-100);color:var(--navy);text-decoration:none}
+.nav-cta{background:var(--blue-mid)!important;color:#fff!important;border-radius:6px;padding:6px 14px;font-size:13px;font-weight:500}
+.nav-cta:hover{background:var(--navy)!important;text-decoration:none!important}
+.hamburger{display:none;background:none;border:none;cursor:pointer;font-size:20px;color:var(--text2)}
+.page{max-width:1140px;margin:0 auto;padding:32px 24px 80px}
+.section{margin-bottom:52px}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;gap:12px;border-bottom:2px solid var(--blue-light);padding-bottom:10px}
+.section-title{font-family:var(--serif);font-size:21px;color:var(--navy)}
+.section-sub{font-size:13px;color:var(--text3)}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#0D3A6E 45%,#1A5E8A 100%);border-radius:var(--r-lg);padding:40px 44px;color:#fff;margin-bottom:32px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:380px;height:380px;border-radius:50%;background:rgba(255,255,255,.035);pointer-events:none}
+.hero-eyebrow{font-size:11px;opacity:.65;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;font-weight:600}
+.hero-title{font-family:var(--serif);font-size:30px;font-weight:400;line-height:1.2;margin-bottom:10px}
+.hero-title em{font-style:italic;opacity:.85}
+.hero-sub{font-size:14px;opacity:.80;max-width:580px;line-height:1.65;margin-bottom:22px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.pill{font-size:11px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:4px 13px;color:#fff;font-weight:500}
+.pill.gold{background:rgba(200,135,12,.25);border-color:rgba(245,200,66,.4)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.hero-stat{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:16px;text-align:center}
+.hero-stat-num{font-family:var(--serif);font-size:24px;line-height:1}
+.hero-stat-label{font-size:11px;opacity:.72;margin-top:5px}
+#countdown-days{font-size:30px}
+.alert{display:flex;align-items:center;gap:10px;background:var(--gold-bg);border:1px solid var(--gold-border);border-radius:var(--r-sm);padding:13px 17px;margin-bottom:22px;font-size:13px;color:var(--amber)}
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.kpi{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:16px;text-align:center;box-shadow:var(--shadow)}
+.kpi-num{font-family:var(--serif);font-size:28px;color:var(--navy)}
+.kpi-label{font-size:11px;color:var(--text3);margin-top:3px}
+.kpi.overdue .kpi-num{color:var(--red)}
+.kpi.pending .kpi-num{color:var(--amber)}
+.kpi.received .kpi-num{color:var(--teal)}
+.sync-bar{display:flex;align-items:center;justify-content:space-between;background:var(--blue-pale);border:1px solid #b8d0f5;border-radius:var(--r-sm);padding:10px 15px;margin-bottom:16px;font-size:12px;color:#1A3A6E;gap:12px}
+.sync-bar a{color:var(--blue-mid);font-weight:500}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:#52C27A;flex-shrink:0}
+.sync-dot.offline{background:var(--gold-border)}
+.btn-sm{background:var(--blue-mid);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;cursor:pointer}
+.btn-sm:hover{background:var(--navy)}
+.coverage-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px}
+.coverage-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px;text-align:center;box-shadow:var(--shadow)}
+.coverage-num{font-family:var(--serif);font-size:24px;color:var(--blue-mid)}
+.coverage-label{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.4}
+.coverage-bar{height:4px;border-radius:2px;background:var(--gray-200);margin-top:8px;overflow:hidden}
+.coverage-fill{height:100%;background:linear-gradient(90deg,var(--blue-mid),var(--teal));border-radius:2px;transition:width .5s}
+.table-controls{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.search-box{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--border2);border-radius:var(--r-sm);font-size:13px;outline:none;transition:border-color .15s}
+.search-box:focus{border-color:var(--blue-mid)}
+select.filter{padding:7px 10px;border:1px solid var(--border2);border-radius:var(--r-sm);font-size:13px;outline:none;background:var(--bg);cursor:pointer}
+.table-wrap{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--gray-50);border-bottom:1px solid var(--border);padding:10px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{background:var(--gray-100);color:var(--navy)}
+td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--blue-pale)}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:500;white-space:nowrap}
+.badge-blue{background:#DBEAFE;color:#1E40AF}
+.badge-teal{background:var(--teal-light);color:#0A5A4A}
+.badge-gray{background:var(--gray-100);color:var(--gray-600)}
+.badge-green{background:var(--green-bg);color:var(--green)}
+.badge-amber{background:var(--amber-bg);color:var(--amber)}
+.badge-red{background:var(--red-bg);color:var(--red)}
+.checkmarks{display:flex;gap:3px;flex-wrap:wrap}
+.check{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.check.yes{background:var(--blue-light);color:var(--blue-mid)}
+.check.no{background:var(--gray-100);color:var(--gray-400)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.card-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--gray-200)}
+.tl-item{position:relative;margin-bottom:20px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-24px;top:4px;width:14px;height:14px;border-radius:50%;border:2px solid var(--bg)}
+.tl-dot.done{background:var(--green);box-shadow:0 0 0 2px var(--green-border)}
+.tl-dot.active{background:var(--blue-mid);box-shadow:0 0 0 2px #93B5F8;animation:pulse 2s infinite}
+.tl-dot.soon{background:var(--gold-border);box-shadow:0 0 0 2px var(--amber)}
+.tl-dot.future{background:var(--gray-200);box-shadow:0 0 0 2px var(--gray-400)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 2px #93B5F8}50%{box-shadow:0 0 0 6px rgba(37,99,192,.2)}}
+.tl-date{font-size:11px;color:var(--text3);font-weight:500;margin-bottom:2px}
+.tl-title{font-size:13px;font-weight:600;color:var(--text)}
+.tl-desc{font-size:12px;color:var(--text3);margin-top:2px;line-height:1.5}
+.tl-tag{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-left:6px;vertical-align:middle}
+.tag-critical{background:var(--red-bg);color:var(--red)}
+.tag-upcoming{background:var(--amber-bg);color:var(--amber)}
+.tag-done{background:var(--green-bg);color:var(--green)}
+.thrusts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.thrust-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:box-shadow .2s,transform .15s}
+.thrust-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.thrust-accent{height:5px}
+.thrust-body{padding:18px;flex:1}
+.thrust-tag{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.thrust-title{font-family:var(--serif);font-size:16px;color:var(--navy);margin-bottom:7px;line-height:1.3}
+.thrust-desc{font-size:12px;color:var(--text2);line-height:1.65;margin-bottom:12px}
+.thrust-footer{padding:12px 18px;background:var(--bg2);border-top:1px solid var(--border);display:flex;flex-direction:column;gap:7px}
+.thrust-need{font-size:11px;color:var(--text3)}
+.thrust-need strong{color:var(--text)}
+.thrust-badges{display:flex;flex-wrap:wrap;gap:4px}
+.thrust-status{display:flex;align-items:center;justify-content:space-between;font-size:11px;margin-top:4px}
+.status-open{color:var(--teal);font-weight:600}
+.status-planned{color:var(--amber);font-weight:600}
+.pillars-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.pillar-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--blue-mid);border-radius:var(--r-sm);padding:14px;box-shadow:var(--shadow)}
+.pillar-num{font-size:11px;font-weight:700;color:var(--blue-mid);margin-bottom:4px}
+.pillar-title{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px;line-height:1.35}
+.pillar-desc{font-size:11px;color:var(--text3);line-height:1.5}
+.about-grid{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start}
+.about-prose{font-size:14.5px;color:var(--text2);line-height:1.8}
+.about-prose p{margin-bottom:14px}
+.about-prose p:last-child{margin-bottom:0}
+.about-prose strong{color:var(--text);font-weight:600}
+.about-subhead{font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.08em;margin:22px 0 8px;padding-bottom:6px;border-bottom:2px solid var(--blue-light)}
+.about-sidebar{display:flex;flex-direction:column;gap:12px;position:sticky;top:72px}
+.about-fact{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.about-fact-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.about-fact-value{font-size:13px;color:var(--text);line-height:1.6}
+.about-fact-value strong{color:var(--navy)}
+.about-quote{background:var(--blue-pale);border-left:4px solid var(--blue-mid);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:14px 16px}
+.about-quote p{font-size:13px;color:#1A3A6E;line-height:1.7;font-style:italic;margin:0;font-family:var(--serif)}
+.about-quote cite{display:block;font-size:11px;color:#2563C0;font-style:normal;margin-top:6px;font-weight:600;font-family:var(--font)}
+.partner-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.partner-chip{background:var(--gray-100);border:1px solid var(--border2);border-radius:20px;padding:3px 10px;font-size:11px;color:var(--text2)}
+.gap-list{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.gap-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text2)}
+.gap-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.contact-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.contact-card h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.contact-card p{font-size:13px;color:var(--text2);line-height:1.7}
+.contact-card a{color:var(--blue-mid)}
+.template-box{background:var(--blue-pale);border:1px solid #b8d0f5;border-radius:var(--r-sm);padding:14px 16px;font-size:12px;color:#1A3A6E;line-height:1.7;margin-top:10px}
+.template-box strong{display:block;margin-bottom:4px;font-size:13px}
+footer{background:var(--navy);color:rgba(255,255,255,.75);padding:24px 20px;text-align:center;font-size:12px;margin-top:16px}
+footer a{color:rgba(255,255,255,.75)}
+.hidden{display:none!important}
+.empty-state{text-align:center;padding:40px;color:var(--text3);font-size:13px}
+
+
+/* --- Gestalt polish: clearer grouping, proximity, alignment, and hierarchy --- */
+.page{padding-top:40px}
+.section{scroll-margin-top:78px}
+.section-header{background:rgba(255,255,255,.58);border:1px solid rgba(226,232,240,.9);border-radius:14px;padding:16px 18px;margin-bottom:18px;box-shadow:0 1px 2px rgba(13,43,94,.04)}
+.section-title{font-size:24px;letter-spacing:-.01em}
+.hero{box-shadow:0 18px 48px rgba(13,43,94,.18);border:1px solid rgba(255,255,255,.12)}
+.hero::after{content:'';position:absolute;inset:auto 36px 0 36px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent)}
+.hero-stat,.kpi,.coverage-card,.card,.thrust-card,.pillar-card,.contact-card,.about-fact{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.kpi:hover,.coverage-card:hover,.card:hover,.pillar-card:hover,.contact-card:hover,.about-fact:hover{transform:translateY(-1px);box-shadow:var(--shadow-md);border-color:#c7d6ee}
+.kpi-grid,.coverage-grid,.thrusts-grid,.pillars-grid,.contact-grid,.two-col{align-items:stretch}
+.card,.contact-card,.about-fact{background:linear-gradient(180deg,#fff 0%,#fbfdff 100%)}
+.table-wrap{border-radius:14px;box-shadow:0 10px 30px rgba(13,43,94,.06)}
+th{position:sticky;top:58px;z-index:2}
+tr:hover td{background:#F7FAFF}
+.two-col{grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:20px}
+.card-title{font-size:15px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.timeline{margin-top:4px}
+.tl-item{padding:2px 0 4px 2px}
+.sync-bar{box-shadow:0 1px 0 rgba(255,255,255,.8) inset}
+.btn-sm{font-weight:700;letter-spacing:.01em}
+.search-box,select.filter{background:#fff;box-shadow:0 1px 0 rgba(255,255,255,.8) inset}
+.search-box:focus,select.filter:focus{box-shadow:0 0 0 3px rgba(37,99,192,.12)}
+.badge{letter-spacing:.01em}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr}.about-sidebar{position:static}
+  .hero-stats{grid-template-columns:repeat(2,1fr)}.kpi-grid{grid-template-columns:repeat(3,1fr)}
+  .coverage-grid{grid-template-columns:repeat(3,1fr)}.thrusts-grid{grid-template-columns:repeat(2,1fr)}
+  .pillars-grid{grid-template-columns:repeat(3,1fr)}.contact-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .hero{padding:24px}.hero-title{font-size:22px}.hero-stats{grid-template-columns:repeat(2,1fr)}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}.coverage-grid{grid-template-columns:repeat(2,1fr)}
+  .thrusts-grid{grid-template-columns:1fr}.pillars-grid{grid-template-columns:1fr 1fr}
+  .two-col{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}
+  .nav-links{display:none}.hamburger{display:block}.section-header{flex-direction:column;gap:4px}
+}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-emblem">🔬</div>
+    <div class="gate-title">UNR e-RISE Partner Hub</div>
+    <div class="gate-sub">For proposal team and invited external partners.<br>Enter the access code to continue.</div>
+    <input class="gate-input" id="gate-input" type="password" placeholder="Access Code" maxlength="64"
+      onkeydown="if(event.key==='Enter')checkPassword()">
+    <button class="gate-btn" onclick="checkPassword()">Enter →</button>
+    <div class="gate-error" id="gate-error"></div>
+    <div class="gate-hint">Need access? Contact <a href="mailto:pi@unr.edu" style="color:var(--blue-mid)">the UNR PI</a>.</div>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="nav-badge">e-RISE</span>
+      UNR EPSCoR Research Incubator
+    </div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#dashboard">Partners</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#thrusts">Research Thrusts</a>
+      <a href="#pillars">Pillars</a>
+      <a href="#contact" class="nav-cta">Get Involved</a>
+    </div>
+    <button class="hamburger" onclick="toggleNav()">☰</button>
+  </div>
+</nav>
+
+<div class="page">
+
+<div class="hero">
+  <div class="hero-eyebrow">NSF 25-522 · EPSCoR E-RISE · University of Nevada, Reno — Lead Institution</div>
+  <div class="hero-title">Nevada <em>e-RISE</em><br>Research Incubator for STEM Excellence</div>
+  <div class="hero-sub">Building Nevada's research capacity and EPSCoR competitiveness through hypothesis-driven science, cross-sector collaboration, and a sustainable statewide research incubator.</div>
+  <div class="hero-pills">
+    <span class="pill">EPSCoR Jurisdiction</span>
+    <span class="pill">UNR Lead Institution</span>
+    <span class="pill gold">Up to $8M · 4 Years</span>
+    <span class="pill">NSF 25-522</span>
+    <span class="pill">Multi-Institution Consortium</span>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num" id="stat-partners">—</div><div class="hero-stat-label">Partners Engaged</div></div>
+    <div class="hero-stat"><div class="hero-stat-num" id="stat-letters">0</div><div class="hero-stat-label">Letters Received</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">3</div><div class="hero-stat-label">Research Thrusts</div></div>
+    <div class="hero-stat"><div class="hero-stat-num"><span id="countdown-days">—</span>d</div><div class="hero-stat-label">Until Aug 12 Deadline</div></div>
+  </div>
+</div>
+
+<div class="alert">
+  <span style="font-size:18px;flex-shrink:0">⚡</span>
+  <span id="alert-text">Full Proposal Deadline: <strong>August 12, 2025</strong> (annually, 2nd Tuesday in August). All named partner organizations must be represented by a PI, co-PI, or senior personnel — and the <strong>Jurisdictional Steering Committee</strong> must be notified before submission.</span>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="about">
+  <div class="section-header">
+    <div class="section-title">About the Project</div>
+    <div class="section-sub">Overview · NSF 25-522 EPSCoR Research Incubators for STEM Excellence</div>
+  </div>
+  <div class="about-grid">
+    <div>
+      <div class="about-prose">
+        <p>The <strong>Nevada EPSCoR Research Incubator for STEM Excellence (e-RISE)</strong> is a University of Nevada, Reno–led initiative to grow Nevada's research capacity and national competitiveness in a strategically chosen scientific domain. Built on a multi-institutional consortium of Nevada's strongest research and civic organizations, this project responds directly to NSF's EPSCoR mandate: build sustainable, jurisdiction-wide research ecosystems that raise Nevada's standing in the national science enterprise.</p>
+
+        <div class="about-subhead">The Opportunity</div>
+        <p>NSF's E-RISE program (NSF 25-522) funds hypothesis-driven or problem-driven research incubators in EPSCoR-eligible jurisdictions like Nevada. The current solicitation supports awards of <strong>up to $8 million over four years</strong>, with renewals possible for strong performers. E-RISE is particularly interested in <strong>emerging and interdisciplinary research areas</strong> with high potential societal impact — exactly where Nevada has competitive advantages.</p>
+        <p>Nevada is an EPSCoR jurisdiction, meaning it has historically received a smaller share of NSF funding relative to its scientific capacity. E-RISE is designed to permanently change that by building lasting research infrastructure, developing a skilled STEM workforce, and creating the cross-sector collaboration networks that sustain science beyond any single grant.</p>
+
+        <div class="about-subhead">What the Incubator Will Do</div>
+        <p>An E-RISE incubator must pursue a <strong>clear, testable research hypothesis or problem</strong> — it is not a general coordination or workforce program. Our project is organized around a focused scientific topical area aligned with Nevada's Science and Technology Plan, with five NSF-required pillars woven throughout. The research goal drives everything: partner roles, workforce activities, and sustainability plans all connect back to the science.</p>
+        <p>In practice, this means recruiting faculty co-investigators and senior personnel who can <strong>directly contribute to the research</strong>, not just provide letters of support. It means identifying industry partners who can host embedded researchers and provide real-world testbeds. And it means building the organizational backbone — including a Networking/Partnership Manager — that keeps the consortium aligned and productive over four years.</p>
+
+        <div class="about-subhead">Nevada's Research Assets</div>
+        <p>Nevada has compelling strengths in the right domains: UNR's R1 research classification and engineering depth, DRI's nationally recognized environmental and water research, UNLV's metropolitan-scale capacity, Great Basin College's rural reach, and strong industry sectors in mining and critical minerals, renewable energy (especially geothermal), advanced manufacturing, and water systems. E-RISE will connect these assets into a coherent, fundable research network.</p>
+
+        <div class="about-subhead">The Consortium</div>
+        <p>UNR serves as lead organization. NSF requires that each participating organization be represented by a <strong>named PI, co-PI, or senior personnel</strong> — not just an institutional letter. We are actively recruiting co-investigators and collaborators across all five E-RISE pillars, with special urgency around industry research partners and a networking/partnership manager (both new requirements in NSF 25-522).</p>
+        <div class="partner-chips">
+          <span class="partner-chip">UNR (Lead)</span>
+          <span class="partner-chip">Desert Research Institute</span>
+          <span class="partner-chip">UNLV (pending)</span>
+          <span class="partner-chip">Great Basin College</span>
+          <span class="partner-chip">Nevada GOED</span>
+          <span class="partner-chip">Industry Partners (recruiting)</span>
+          <span class="partner-chip">Tribal Organization (recruiting)</span>
+        </div>
+
+        <div class="about-subhead">How to Get Involved</div>
+        <p>Partner organizations must provide a <strong>brief letter of collaboration</strong> — required from every named partner before the full proposal is submitted to Research.gov. Named partners also need a PI, co-PI, or senior personnel contributor identified in the proposal. See the Get Involved section for the exact NSF letter format and contact information for the PI team.</p>
+      </div>
+    </div>
+
+    <div class="about-sidebar">
+      <div class="about-quote">
+        <p>"E-RISE invites innovative proposals that will lead to development and implementation of sustainable broad networks — transforming STEM research capacity and competitiveness in a jurisdiction."</p>
+        <cite>— NSF 25-522 Program Synopsis</cite>
+      </div>
+      <div class="about-fact">
+        <div class="about-fact-label">Funding &amp; Program</div>
+        <div class="about-fact-value">
+          <strong>Up to $8M / 4 years</strong><br>
+          NSF 25-522 · EPSCoR E-RISE<br>
+          Office of Integrative Activities<br>
+          Renewals permitted for strong performers
+        </div>
+      </div>
+      <div class="about-fact">
+        <div class="about-fact-label">Key Deadline</div>
+        <div class="about-fact-value">
+          <strong>August 12, 2025</strong> — Full Proposal<br>
+          (2nd Tuesday in August, annually)<br><br>
+          <em>All named organizations require PI/co-PI or senior personnel representation before submission.</em>
+        </div>
+      </div>
+      <div class="about-fact">
+        <div class="about-fact-label">Lead Institution</div>
+        <div class="about-fact-value">
+          <strong>University of Nevada, Reno</strong><br>
+          R1 Research University<br>
+          Nevada's land-grant institution<br>
+          EPSCoR-eligible jurisdiction
+        </div>
+      </div>
+      <div class="about-fact">
+        <div class="about-fact-label">New NSF 25-522 Requirements</div>
+        <div class="gap-list">
+          <div class="gap-item"><div class="gap-dot" style="background:var(--red)"></div>Networking/Partnership Manager — required, not yet hired</div>
+          <div class="gap-item"><div class="gap-dot" style="background:var(--red)"></div>JSC Notification — must notify before submission</div>
+          <div class="gap-item"><div class="gap-dot" style="background:var(--red)"></div>Industry research partner with named personnel</div>
+          <div class="gap-item"><div class="gap-dot" style="background:var(--amber-border)"></div>UNLV institutional role — faculty engaged, TBD</div>
+          <div class="gap-item"><div class="gap-dot" style="background:var(--amber-border)"></div>Tribal organization — strongly recommended</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="section" id="dashboard">
+  <div class="section-header">
+    <div class="section-title">Consortium Dashboard</div>
+    <div class="section-sub">Track partner organizations, letter status, and pillar coverage</div>
+  </div>
+  <div class="sync-bar">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="sync-dot offline" id="sync-dot"></div>
+      <span id="sync-status">Using built-in data. <a href="#" onclick="openSyncHelp();return false">Connect Airtable through Cloudflare</a> for live updates.</span>
+    </div>
+    <button class="btn-sm" onclick="refreshData()">↻ Refresh</button>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-num" id="kpi-total">0</div><div class="kpi-label">Total Partners</div></div>
+    <div class="kpi"><div class="kpi-num" id="kpi-requested">0</div><div class="kpi-label">Letters Requested</div></div>
+    <div class="kpi received"><div class="kpi-num" id="kpi-received">0</div><div class="kpi-label">Letters Received</div></div>
+    <div class="kpi pending"><div class="kpi-num" id="kpi-pending">0</div><div class="kpi-label">Pending</div></div>
+    <div class="kpi overdue"><div class="kpi-num" id="kpi-overdue">0</div><div class="kpi-label">Overdue (&gt;14d)</div></div>
+  </div>
+  <div class="coverage-grid">
+    <div class="coverage-card"><div class="coverage-num" id="cov-research">0</div><div class="coverage-label">Research Capacity</div><div class="coverage-bar"><div class="coverage-fill" id="fill-research" style="width:0%"></div></div></div>
+    <div class="coverage-card"><div class="coverage-num" id="cov-workforce">0</div><div class="coverage-label">Workforce Development</div><div class="coverage-bar"><div class="coverage-fill" id="fill-workforce" style="width:0%"></div></div></div>
+    <div class="coverage-card"><div class="coverage-num" id="cov-collab">0</div><div class="coverage-label">Cross-Sector Collab</div><div class="coverage-bar"><div class="coverage-fill" id="fill-collab" style="width:0%"></div></div></div>
+    <div class="coverage-card"><div class="coverage-num" id="cov-impact">0</div><div class="coverage-label">Societal Impact</div><div class="coverage-bar"><div class="coverage-fill" id="fill-impact" style="width:0%"></div></div></div>
+    <div class="coverage-card"><div class="coverage-num" id="cov-sustain">0</div><div class="coverage-label">Sustainability</div><div class="coverage-bar"><div class="coverage-fill" id="fill-sustain" style="width:0%"></div></div></div>
+  </div>
+  <div class="table-controls">
+    <input class="search-box" type="text" placeholder="Search partners…" id="partner-search" oninput="filterTable()">
+    <select class="filter" id="filter-cat" onchange="filterTable()">
+      <option value="">All Types</option>
+      <option>R1 Research University</option>
+      <option>Research Institute</option>
+      <option>Community College</option>
+      <option>State Government Agency</option>
+      <option>Industry / Private Sector</option>
+      <option>Non-Profit / NGO</option>
+      <option>Tribal Organization</option>
+    </select>
+    <select class="filter" id="filter-status" onchange="filterTable()">
+      <option value="">All Statuses</option>
+      <option value="Not Requested">Not Requested</option>
+      <option value="Pending">Pending</option>
+      <option value="Received">Received</option>
+      <option value="Overdue">Overdue</option>
+    </select>
+    <select class="filter" id="filter-pillar" onchange="filterTable()">
+      <option value="">All Pillars</option>
+      <option value="research">Research</option>
+      <option value="workforce">Workforce</option>
+      <option value="collab">Collaboration</option>
+      <option value="impact">Societal Impact</option>
+      <option value="sustain">Sustainability</option>
+    </select>
+  </div>
+  <div class="table-wrap">
+    <table id="partner-table">
+      <thead>
+        <tr>
+          <th onclick="sortTable('org')">Organization ↕</th>
+          <th onclick="sortTable('category')">Type ↕</th>
+          <th onclick="sortTable('contact')">Contact</th>
+          <th>E-RISE Pillars</th>
+          <th onclick="sortTable('status')">Letter Status ↕</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="partner-tbody"></tbody>
+    </table>
+    <div class="empty-state hidden" id="empty-state">No partners match your filters.</div>
+  </div>
+  <div style="margin-top:8px;font-size:11px;color:var(--text3)" id="table-count"></div>
+</div>
+
+<!-- TIMELINE -->
+<div class="section" id="timeline">
+  <div class="section-header">
+    <div class="section-title">Proposal Timeline</div>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <div class="card-title">📅 Submission Milestones</div>
+      <div class="timeline" id="timeline-items"></div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-title">✅ Open Action Items</div>
+        <div style="font-size:13px;color:var(--text2)">
+          <div style="display:flex;flex-direction:column;gap:8px" id="action-items"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔍 Consortium Gaps</div>
+        <div style="font-size:13px;color:var(--text2);display:flex;flex-direction:column;gap:8px" id="gap-analysis"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESEARCH THRUSTS -->
+<div class="section" id="thrusts">
+  <div class="section-header">
+    <div class="section-title">Research Thrusts &amp; Collaboration Opportunities</div>
+    <div class="section-sub">Seeking co-investigators and senior personnel for these research areas</div>
+  </div>
+  <div class="thrusts-grid" id="thrusts-grid"></div>
+</div>
+
+<!-- E-RISE PILLARS -->
+<div class="section" id="pillars">
+  <div class="section-header">
+    <div class="section-title">Five E-RISE Pillars</div>
+    <div class="section-sub">NSF 25-522 — all five must be addressed in the project design</div>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar-card">
+      <div class="pillar-num">PILLAR 01</div>
+      <div class="pillar-title">Research Capacity Building</div>
+      <div class="pillar-desc">Expanding Nevada's depth and breadth in the chosen scientific topic — new research groups, instrumentation, and multi-institutional collaboration around a clear hypothesis.</div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">PILLAR 02</div>
+      <div class="pillar-title">STEM Workforce Development</div>
+      <div class="pillar-desc">Training graduate students, postdocs, and early-career researchers in skills directly tied to the research topic and Nevada's workforce needs.</div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">PILLAR 03</div>
+      <div class="pillar-title">Cross-Sector Collaboration</div>
+      <div class="pillar-desc">Building durable networks across academic institutions, government agencies, industry, and non-profits. Each partner must contribute to — not merely observe — the research.</div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">PILLAR 04</div>
+      <div class="pillar-title">Societal Impact Integration</div>
+      <div class="pillar-desc">Ensuring research addresses real Nevada challenges in water, mining, energy, health, and rural equity — with meaningful community engagement throughout the project.</div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-num">PILLAR 05</div>
+      <div class="pillar-title">Sustainability Beyond NSF</div>
+      <div class="pillar-desc">A credible plan for sustaining incubator teams, tools, and networks after the grant ends. NSF reviewers weigh this heavily — vague commitments will not suffice.</div>
+    </div>
+  </div>
+</div>
+
+<!-- GET INVOLVED -->
+<div class="section" id="contact">
+  <div class="section-header">
+    <div class="section-title">Get Involved</div>
+    <div class="section-sub">Joining the consortium requires one letter and one named contributor</div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h3>📬 Contact the PI</h3>
+      <p>
+        <strong>[PI Name, Title]</strong><br>
+        [Department / College]<br>
+        University of Nevada, Reno<br><br>
+        <a href="mailto:pi@unr.edu">pi@unr.edu</a><br><br>
+        <strong>Research Coordinator:</strong><br>
+        [Coordinator Name]<br>
+        Office of VP for Research &amp; Innovation
+      </p>
+    </div>
+    <div class="contact-card">
+      <h3>🤝 Ways to Collaborate</h3>
+      <p>
+        <strong>Co-PI or Senior Personnel</strong> — required for all organizations named in the proposal. Your institution must be represented by a researcher who contributes to the science.<br><br>
+        <strong>Advisory / Steering Role</strong> — guide strategy without requiring PI status; less binding but also less recognized in the proposal.<br><br>
+        <strong>Research Testbed</strong> — provide data, field sites, or facilities that enable the incubator's core research.<br><br>
+        <strong>Industry Co-Investment</strong> — matching funds and in-kind contributions strengthen the sustainability narrative for NSF reviewers.
+      </p>
+    </div>
+    <div class="contact-card">
+      <h3>📄 Letter Template</h3>
+      <p style="font-size:12px;color:var(--text3);margin-bottom:10px">NSF requires a letter of collaboration — not a letter of support. Use this exact format:</p>
+      <div class="template-box">
+        <strong>NSF E-RISE Letter of Collaboration</strong>
+        If the proposal submitted by <em>[PI Name]</em> to NSF 25-522, the EPSCoR Research Incubators for STEM Excellence (E-RISE) program, entitled <em>[Project Title]</em> is selected for funding by the National Science Foundation, it is my intent to collaborate and/or commit resources as detailed in the Project Description or the Facilities, Equipment or Other Resources section of the proposal.<br><br>
+        <em>[Authorized Signatory Name, Title, Organization, Date]</em>
+      </div>
+      <button onclick="downloadLetter()" style="margin-top:12px;width:100%;padding:10px;background:var(--blue-mid);color:#fff;border:none;border-radius:var(--r-sm);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font)">⬇️ Download Letter Template</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /page -->
+
+<div id="sync-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center">
+  <div style="background:var(--bg);border-radius:var(--r-lg);padding:28px;max-width:520px;width:90%;position:relative;box-shadow:var(--shadow-lg)">
+    <button onclick="closeSyncHelp()" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;color:var(--text3);cursor:pointer">✕</button>
+    <h2 style="font-size:17px;color:var(--navy);margin-bottom:8px;font-family:var(--serif)">Connect Airtable through Cloudflare</h2>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">This HTML calls <code style="background:var(--gray-100);padding:1px 5px;border-radius:3px">/api/airtable</code>. Put the included Cloudflare Pages Function in <code style="background:var(--gray-100);padding:1px 5px;border-radius:3px">functions/api/airtable.js</code>, then store your Airtable credentials as Cloudflare variables.</p>
+    <ol style="font-size:13px;color:var(--text2);padding-left:18px;line-height:2.2;margin-bottom:18px">
+      <li>Commit <strong>index.html</strong> and <strong>functions/api/airtable.js</strong> to GitHub</li>
+      <li>Connect the GitHub repo to <strong>Cloudflare Pages</strong></li>
+      <li>In Cloudflare Pages settings, add <strong>AIRTABLE_BASE_ID</strong></li>
+      <li>Add <strong>AIRTABLE_TOKEN</strong> as a secret</li>
+      <li>Redeploy, then test <code style="background:var(--gray-100);padding:1px 5px;border-radius:3px">/api/airtable?table=partners</code></li>
+    </ol>
+    <div style="background:var(--blue-pale);border:1px solid #b8d0f5;border-radius:var(--r-sm);padding:12px;font-size:12px;color:#1A3A6E">
+      🔒 <strong>Important:</strong> the Airtable token is intentionally not in this HTML file. Keep it only in Cloudflare.
+    </div>
+  </div>
+</div>
+
+<footer>
+  UNR e-RISE Research Incubator &nbsp;·&nbsp; University of Nevada, Reno &nbsp;·&nbsp; NSF 25-522 EPSCoR E-RISE &nbsp;·&nbsp;
+  <a href="https://www.nsf.gov/funding/opportunities/e-rise-epscor-research-infrastructure-improvement-program-epscor/nsf25-522/solicitation" target="_blank">NSF Solicitation ↗</a>
+</footer>
+
+<script>
+var SITE_PASSWORD='erise-unr-2025';
+var SESSION_KEY='erise_auth';
+// Airtable is fetched through a Cloudflare Pages Function at /api/airtable.
+// Keep AIRTABLE_TOKEN and AIRTABLE_BASE_ID in Cloudflare environment variables, not in this HTML file.
+
+
+var partners=[],actions=[],gaps=[],milestones=[],thrusts=[],sortKey=null,sortDir=1;
+
+var DEFAULT_PARTNERS=[
+  {org:'University of Nevada, Reno (UNR)',category:'R1 Research University',role:'Lead Institution',contact:'Chuck Coronella',email:'coronella@unr.edu',notes:'Lead PI — project director and primary NSF contact',research:true,workforce:true,collab:true,impact:true,sustain:true,letReq:false,letRec:false,daysReq:null},
+  {org:'Desert Research Institute (DRI)',category:'Research Institute',role:'Co-Investigator',contact:'Rishi',email:'contact@dri.edu',notes:'Water, atmospheric, and environmental science expertise',research:true,workforce:true,collab:true,impact:true,sustain:false,letReq:false,letRec:false,daysReq:null},
+  {org:'UNLV',category:'R1 Research University',role:'Co-Investigator (pending)',contact:'TBD',email:'',notes:'Southern Nevada reach; institutional role TBD',research:true,workforce:true,collab:true,impact:false,sustain:false,letReq:false,letRec:false,daysReq:null},
+  {org:'Great Basin College',category:'Community College',role:'Workforce Partner',contact:'TBD',email:'',notes:'Rural eastern Nevada; community college workforce pipeline',research:false,workforce:true,collab:true,impact:true,sustain:false,letReq:false,letRec:false,daysReq:null},
+  {org:'Nevada GOED',category:'State Government Agency',role:'Industry & Econ. Development',contact:'TBD',email:'',notes:"Governor's Office of Economic Development",research:false,workforce:false,collab:true,impact:true,sustain:true,letReq:false,letRec:false,daysReq:null},
+  {org:'[Industry Partner - TBD]',category:'Industry / Private Sector',role:'Research Testbed',contact:'TBD',email:'',notes:'REQUIRED: named co-PI or senior personnel',research:true,workforce:true,collab:true,impact:true,sustain:true,letReq:false,letRec:false,daysReq:null},
+  {org:'[Tribal Organization - TBD]',category:'Tribal Organization',role:'Community Partnership',contact:'TBD',email:'',notes:'Strongly recommended for broadening participation',research:false,workforce:true,collab:true,impact:true,sustain:false,letReq:false,letRec:false,daysReq:null}
+];
+
+function checkPassword(){
+  var val=document.getElementById('gate-input').value.trim();
+  if(val===SITE_PASSWORD){sessionStorage.setItem(SESSION_KEY,'1');document.getElementById('gate').classList.add('hidden');}
+  else{var inp=document.getElementById('gate-input');inp.classList.remove('shake');void inp.offsetWidth;inp.classList.add('shake');document.getElementById('gate-error').textContent='Incorrect code — try again.';inp.value='';inp.focus();}
+}
+(function(){if(sessionStorage.getItem(SESSION_KEY)==='1')document.getElementById('gate').classList.add('hidden');else setTimeout(function(){document.getElementById('gate-input').focus();},100);})();
+
+function toggleNav(){var links=document.querySelector('.nav-links');if(links.style.display==='flex'){links.removeAttribute('style');}else{Object.assign(links.style,{display:'flex',flexDirection:'column',position:'absolute',top:'58px',left:'0',right:'0',background:'#fff',padding:'12px 24px',borderBottom:'1px solid var(--border)',zIndex:'99',gap:'4px'});}}
+
+function updateCountdown(){var d=new Date('2025-08-12T17:00:00'),diff=Math.ceil((d-new Date())/86400000);document.getElementById('countdown-days').textContent=diff>0?diff:'--';}
+updateCountdown();
+
+function badgeForStatus(s){var m={'Received':'badge-green','Pending':'badge-amber','Overdue':'badge-red','Not Requested':'badge-gray'};return '<span class="badge '+(m[s]||'badge-gray')+'">'+(s||'Not Requested')+'</span>';}
+function getStatus(p){if(p.letRec)return'Received';if(p.letReq&&p.daysReq!==null&&p.daysReq>14)return'Overdue';if(p.letReq)return'Pending';return'Not Requested';}
+function pillarsCheck(p){return['research','workforce','collab','impact','sustain'].map(function(k){return'<div class="check '+(p[k]?'yes':'no')+'" title="'+k.charAt(0).toUpperCase()+k.slice(1)+'">'+(p[k]?'✓':'–')+'</div>';}).join('');}
+
+function renderTable(){
+  var search=document.getElementById('partner-search').value.toLowerCase();
+  var catF=document.getElementById('filter-cat').value,stF=document.getElementById('filter-status').value,pilF=document.getElementById('filter-pillar').value;
+  var rows=partners.filter(function(p){
+    if(search&&!p.org.toLowerCase().includes(search)&&!p.contact.toLowerCase().includes(search)&&!(p.notes||'').toLowerCase().includes(search))return false;
+    if(catF&&p.category!==catF)return false;
+    if(stF&&getStatus(p)!==stF)return false;
+    if(pilF&&!p[pilF])return false;
+    return true;
+  });
+  if(sortKey){rows.sort(function(a,b){var av=sortKey==='status'?getStatus(a):a[sortKey]||'',bv=sortKey==='status'?getStatus(b):b[sortKey]||'';return av.toString().localeCompare(bv.toString())*sortDir;});}
+  document.getElementById('partner-tbody').innerHTML=rows.map(function(p){return'<tr><td><strong>'+p.org+'</strong>'+(p.role?'<br><span style="font-size:11px;color:var(--text3)">'+p.role+'</span>':'')+'</td><td><span class="badge badge-blue" style="font-size:10px">'+(p.category||'')+'</span></td><td>'+(p.contact||'')+(p.email?'<br><a href="mailto:'+p.email+'" style="font-size:11px">'+p.email+'</a>':'')+'</td><td><div class="checkmarks">'+pillarsCheck(p)+'</div></td><td>'+badgeForStatus(getStatus(p))+'</td><td style="font-size:12px;color:var(--text3)">'+(p.notes||'—')+'</td></tr>';}).join('');
+  document.getElementById('empty-state').classList.toggle('hidden',rows.length>0);
+  document.getElementById('table-count').textContent='Showing '+rows.length+' of '+partners.length+' partners';
+}
+function filterTable(){renderTable();}
+function sortTable(key){if(sortKey===key)sortDir*=-1;else{sortKey=key;sortDir=1;}renderTable();}
+
+function updateKPIs(){
+  var t=partners.length,req=partners.filter(function(p){return p.letReq;}).length,rec=partners.filter(function(p){return p.letRec;}).length;
+  var pend=partners.filter(function(p){return p.letReq&&!p.letRec&&(p.daysReq||0)<=14;}).length;
+  var over=partners.filter(function(p){return p.letReq&&!p.letRec&&(p.daysReq||0)>14;}).length;
+  document.getElementById('kpi-total').textContent=t;document.getElementById('kpi-requested').textContent=req;
+  document.getElementById('kpi-received').textContent=rec;document.getElementById('kpi-pending').textContent=pend;document.getElementById('kpi-overdue').textContent=over;
+  document.getElementById('stat-partners').textContent=t;document.getElementById('stat-letters').textContent=rec;
+  ['research','workforce','collab','impact','sustain'].forEach(function(k){var n=partners.filter(function(p){return p[k];}).length;document.getElementById('cov-'+k).textContent=n;document.getElementById('fill-'+k).style.width=(Math.min(n/Math.max(t,1)*100,100))+'%';});
+}
+
+function renderThrusts(){
+  var sorted=thrusts.slice().sort(function(a,b){return(a.sortOrder||0)-(b.sortOrder||0);});
+  document.getElementById('thrusts-grid').innerHTML=sorted.map(function(t){return'<div class="thrust-card"><div class="thrust-accent" style="background:'+(t.accentColor||'#2563C0')+'"></div><div class="thrust-body"><div class="thrust-tag">'+(t.area||'')+'</div><div class="thrust-title">'+t.title+'</div><div class="thrust-desc">'+(t.desc||'')+'</div><div class="thrust-badges">'+(t.partners||[]).map(function(p){return'<span class="badge badge-blue">'+p+'</span>';}).join('')+'</div></div><div class="thrust-footer"><div class="thrust-need"><strong>Seeking:</strong> '+(t.needs||[]).join(' · ')+'</div><div class="thrust-status"><span class="badge badge-teal">'+(t.pillarTag||'')+'</span><span class="'+(t.status==='recruiting'?'status-open':'status-planned')+'">'+(t.status==='recruiting'?'● Actively Recruiting':'◐ Planned')+'</span></div></div></div>';}).join('');
+}
+
+function renderMilestones(){
+  var sorted=milestones.slice().sort(function(a,b){return(a.sortOrder||0)-(b.sortOrder||0);});
+  var dotClass={Done:'done',Active:'active',Soon:'soon',Future:'future'};
+  var tagClass={critical:'tag-critical',upcoming:'tag-upcoming',done:'tag-done'};
+  document.getElementById('timeline-items').innerHTML=sorted.map(function(m){return'<div class="tl-item"><div class="tl-dot '+(dotClass[m.status]||'future')+'"></div><div class="tl-date">'+(m.date||'')+'</div><div class="tl-title">'+m.title+(m.tag?'<span class="tl-tag '+(tagClass[m.tagStyle]||'tag-upcoming')+'">'+m.tag+'</span>':'')+'</div><div class="tl-desc">'+(m.description||'')+'</div></div>';}).join('');
+}
+
+function renderActions(){
+  var visible=actions.filter(function(a){return !a.done;});
+  document.getElementById('action-items').innerHTML=visible.length?visible.map(function(a){return'<div style="display:flex;align-items:flex-start;gap:8px;padding:8px;border-radius:6px;background:'+(a.urgent?'var(--red-bg)':'var(--bg2)')+'"><span style="font-size:14px;flex-shrink:0">'+(a.urgent?'🔴':'⬜')+'</span><div><span style="font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase">'+a.owner+'</span><br>'+a.text+'</div></div>';}).join(''):'<div style="color:var(--green);font-weight:600;padding:8px">✅ All action items complete!</div>';
+}
+
+function renderGaps(){
+  var visible=gaps.filter(function(g){return !g.resolved;});
+  document.getElementById('gap-analysis').innerHTML=visible.length?visible.map(function(g){return'<div style="display:flex;align-items:flex-start;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)"><div style="width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px;background:'+(g.priority==='URGENT'||g.priority==='HIGH'?'var(--red)':'var(--amber-border)')+'"></div><div>'+(g.priority?'<span style="font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;margin-right:6px">'+g.priority+'</span>':'')+'<strong style="font-size:12px">'+g.label+'</strong><br><span style="font-size:11px;color:var(--text3)">'+g.note+'</span></div></div>';}).join(''):'<div style="color:var(--green);font-weight:600;padding:8px">✅ All gaps resolved!</div>';
+}
+
+function downloadLetter(){
+  var txt='NSF E-RISE LETTER OF COLLABORATION TEMPLATE\nNSF 25-522 - EPSCoR Research Incubators for STEM Excellence\n\n[Organization Letterhead]\n[Date]\n\nIf the proposal submitted by [PI Name] to NSF 25-522, the EPSCoR Research Incubators for STEM Excellence (E-RISE) program, entitled [Project Title] is selected for funding by the National Science Foundation, it is my intent to collaborate and/or commit resources as detailed in the Project Description or the Facilities, Equipment or Other Resources section of the proposal.\n\n[Authorized Signatory Name]\n[Title]\n[Organization]\n[Date]\n\n---\nINSTRUCTIONS:\n- Letter of collaboration - NOT a letter of support\n- Must be on official organizational letterhead\n- Must be signed by an authorized institutional representative\n- Replace all bracketed text with actual information\n- Submit as PDF appendix with the full proposal\n';
+  var blob=new Blob([txt],{type:'text/plain'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download='NSF-E-RISE-Letter-of-Collaboration-Template.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+}
+
+async function fetchAT(tableKey, sort){
+  var url='/api/airtable?table='+encodeURIComponent(tableKey);
+  if(sort) url+='&sort=true';
+  var r=await fetch(url,{headers:{Accept:'application/json'}});
+  if(!r.ok){
+    var t=await r.text();
+    throw new Error(tableKey+' HTTP '+r.status+': '+t.slice(0,200));
+  }
+  return (await r.json()).records||[];
+}
+
+async function loadData(){
+  var dot=document.getElementById('sync-dot'),st=document.getElementById('sync-status');
+  st.textContent='Connecting to Airtable...';
+  var pR=[],aR=[],gR=[],mR=[],tR=[],errs=[];
+  try{pR=await fetchAT('partners');}catch(e){errs.push('Partners: '+e.message);}
+  try{aR=await fetchAT('actions');}catch(e){errs.push('Actions: '+e.message);}
+  try{gR=await fetchAT('gaps');}catch(e){errs.push('Gaps: '+e.message);}
+  try{mR=await fetchAT('milestones',true);}catch(e){errs.push('Milestones: '+e.message);}
+  try{tR=await fetchAT('thrusts',true);}catch(e){errs.push('Thrusts: '+e.message);}
+
+  if(pR.length){partners=pR.map(function(r){var f=r.fields;return{org:f['Organization']||'',category:f['Organization Type']||'',role:f['Role']||'',contact:f['Contact Name']||'',email:f['Email']||'',notes:f['Notes']||'',research:!!f['Pillar 1: Research'],workforce:!!f['Pillar 2: Workforce'],collab:!!f['Pillar 3: Collaboration'],impact:!!f['Pillar 4: Societal Impact'],sustain:!!f['Pillar 5: Sustainability'],letReq:!!f['Letter Requested'],letRec:!!f['Letter Received'],daysReq:f['Date Requested']?Math.ceil((new Date()-new Date(f['Date Requested']))/86400000):null};});}
+  else{partners=DEFAULT_PARTNERS;}
+
+  if(aR.length){actions=aR.map(function(r){var f=r.fields;return{owner:f['Owner']||'',text:f['Action Item']||'',urgent:!!f['Urgent'],done:!!f['Done']};});}
+  if(gR.length){gaps=gR.map(function(r){var f=r.fields;return{label:f['Gap/Requirement']||'',priority:f['Priority']||'',note:f['Notes']||'',resolved:!!f['Resolved']};}).filter(function(g){return !g.resolved;});}
+  if(mR.length){milestones=mR.map(function(r){var f=r.fields;return{title:f['Title']||'',date:f['Date']||'',description:f['Description']||'',status:f['Status']||'Future',tag:f['Tag']||'',tagStyle:f['Tag Style']||'',sortOrder:f['Sort Order']||0};});}
+  if(tR.length){thrusts=tR.map(function(r){var f=r.fields;return{title:f['Title']||'',area:f['Area']||'',accentColor:f['Accent Color']||'#2563C0',desc:f['Description']||'',partners:(f['Current Partners']||'').split('|').map(function(s){return s.trim();}).filter(Boolean),needs:(f['Seeking']||'').split('|').map(function(s){return s.trim();}).filter(Boolean),pillarTag:f['Pillar Tag']||'',status:(f['Status']||f['Select']||'planned').toLowerCase(),sortOrder:f['Sort Order']||0};});}
+
+  var loaded=[pR,aR,gR,mR,tR].filter(function(r){return r.length>0;}).length;
+  if(loaded>0){
+    dot.classList.remove('offline');
+    var errMsg=errs.length?' <span style="color:var(--red);font-size:11px">Errors: '+errs.join(' | ')+'</span>':'';
+    st.innerHTML='🟢 Live from Airtable &nbsp;·&nbsp; <strong>'+partners.length+'</strong> partners &nbsp;·&nbsp; '+new Date().toLocaleTimeString()+' &nbsp;·&nbsp; <a href="#" onclick="refreshData();return false">Refresh</a>'+errMsg;
+  } else {
+    dot.classList.add('offline');
+    st.innerHTML='Could not connect to Airtable. '+errs.join(' | ')+' &nbsp;·&nbsp; <a href="#" onclick="refreshData();return false">Retry</a>';
+  }
+}
+
+function refreshData(){
+  loadData().then(function(){updateKPIs();renderTable();renderActions();renderGaps();renderMilestones();renderThrusts();});
+}
+
+function openSyncHelp(){document.getElementById('sync-modal').style.display='flex';}
+function closeSyncHelp(){document.getElementById('sync-modal').style.display='none';}
+
+loadData().then(function(){updateKPIs();renderTable();renderThrusts();renderActions();renderGaps();renderMilestones();}).catch(function(e){console.error(e);partners=DEFAULT_PARTNERS;updateKPIs();renderTable();renderThrusts();renderActions();renderGaps();renderMilestones();});
+</script>
+</body>
+</html>

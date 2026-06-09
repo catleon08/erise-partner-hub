@@ -33,13 +33,13 @@ export async function onRequestGet(context) {
     );
   }
 
-  const tableId = TABLES[tableKey];
+  const tableIdOrName = encodeURIComponent(TABLES[tableKey]);
 
-  let airtableUrl = `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${tableId}?pageSize=100`;
+  let airtableUrl = `https://api.airtable.com/v0/${env.AIRTABLE_BASE_ID}/${tableIdOrName}?pageSize=100`;
 
   if (sort) {
     airtableUrl +=
-      "&sort%5B0%5D%5Bfield%5D=Sort+Order&sort%5B0%5D%5Bdirection%5D=asc";
+      "&sort%5B0%5D%5Bfield%5D=Sort%20Order&sort%5B0%5D%5Bdirection%5D=asc";
   }
 
   try {
@@ -56,8 +56,10 @@ export async function onRequestGet(context) {
       return json(
         {
           error: "Airtable request failed.",
+          tableKey,
+          tableIdOrName: TABLES[tableKey],
           status: airtableResponse.status,
-          details: text.slice(0, 500),
+          details: text.slice(0, 1000),
         },
         airtableResponse.status
       );

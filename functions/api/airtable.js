@@ -2,7 +2,7 @@ const TABLES = {
   partners: "tblU4voEl0FjuMO2B",
   actions: "tbl5PojnUaDJYnY90",
   gaps: "tblRgiZSQWcATWdnT",
-  milestones: ""tblCJtmTIRjCYbdU1",
+  milestones: "tblCJtmTIRjCYbdU1",
   thrusts: "tblcp7tex2cO2HxqC",
 };
 
